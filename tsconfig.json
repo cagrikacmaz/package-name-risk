@@ -15,7 +15,11 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "types": ["node", "vitest/globals"]
+    "types": ["node", "vitest/globals"],
+    "baseUrl": ".",
+    "paths": {
+      "package-name-risk": ["./src/index.ts"]
+    }
   },
   "include": ["src", "tests", "examples", "*.config.ts", "eslint.config.js"]
 }

@@ -22,7 +22,10 @@ export function hasInsertedRepeatedCharacter(proposed: string, candidate: string
   if (!isSingleCharacterRemoved(candidate, proposed)) return false;
 
   for (let index = 0; index < proposedChars.length; index += 1) {
-    const withoutCharacter = proposedChars.toSpliced(index, 1).join("");
+    const withoutCharacter = [
+      ...proposedChars.slice(0, index),
+      ...proposedChars.slice(index + 1),
+    ].join("");
     const repeatsNeighbor =
       proposedChars[index] === proposedChars[index - 1] ||
       proposedChars[index] === proposedChars[index + 1];

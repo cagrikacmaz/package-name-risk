@@ -16,8 +16,7 @@ export function levenshteinDistance(left: string, right: string): number {
     current[0] = targetIndex;
     for (let sourceIndex = 1; sourceIndex <= source.length; sourceIndex += 1) {
       const substitution =
-        previous[sourceIndex - 1]! +
-        (source[sourceIndex - 1] === target[targetIndex - 1] ? 0 : 1);
+        previous[sourceIndex - 1]! + (source[sourceIndex - 1] === target[targetIndex - 1] ? 0 : 1);
       current[sourceIndex] = Math.min(
         previous[sourceIndex]! + 1,
         current[sourceIndex - 1]! + 1,

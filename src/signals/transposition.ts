@@ -10,8 +10,8 @@ export function hasSingleAdjacentTransposition(left: string, right: string): boo
 
   return (
     differences.length === 2 &&
-    differences[1] === differences[0]! + 1 &&
-    leftChars[differences[0]!] === rightChars[differences[1]!] &&
-    leftChars[differences[1]!] === rightChars[differences[0]!]
+    differences[1] === differences[0] + 1 &&
+    leftChars[differences[0]] === rightChars[differences[1]] &&
+    leftChars[differences[1]] === rightChars[differences[0]]
   );
 }

@@ -16,7 +16,10 @@ export interface AttachmentMatch {
   position: "prefix" | "suffix";
 }
 
-export function findGenericAttachment(proposed: string, candidate: string): AttachmentMatch | undefined {
+export function findGenericAttachment(
+  proposed: string,
+  candidate: string,
+): AttachmentMatch | undefined {
   const compactProposed = removeSeparators(proposed);
   const compactCandidate = removeSeparators(candidate);
 

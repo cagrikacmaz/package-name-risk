@@ -4,8 +4,12 @@ import tseslint from "typescript-eslint";
 export default tseslint.config(
   { ignores: ["dist", "coverage", "node_modules"] },
   eslint.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
+  ...tseslint.configs.recommendedTypeChecked.map((config) => ({
+    ...config,
+    files: ["**/*.ts"],
+  })),
   {
+    files: ["**/*.ts"],
     languageOptions: {
       parserOptions: {
         projectService: true,

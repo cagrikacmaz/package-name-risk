@@ -128,7 +128,7 @@ function addSuspiciousSignals(
     );
   }
 
-  if (hasSingleAdjacentTransposition(proposedName, candidateName)) {
+  if (!separatorConfusion && hasSingleAdjacentTransposition(proposedName, candidateName)) {
     signals.push(
       signal(
         "adjacent-transposition",
@@ -140,7 +140,7 @@ function addSuspiciousSignals(
     );
   }
 
-  if (isSingleCharacterRemoved(proposedName, candidateName)) {
+  if (!separatorConfusion && isSingleCharacterRemoved(proposedName, candidateName)) {
     signals.push(
       signal(
         "missing-character",
@@ -152,7 +152,7 @@ function addSuspiciousSignals(
     );
   }
 
-  if (isSingleCharacterRemoved(candidateName, proposedName)) {
+  if (!separatorConfusion && isSingleCharacterRemoved(candidateName, proposedName)) {
     signals.push(
       signal(
         "extra-character",
@@ -164,7 +164,7 @@ function addSuspiciousSignals(
     );
   }
 
-  if (hasInsertedRepeatedCharacter(proposedName, candidateName)) {
+  if (!separatorConfusion && hasInsertedRepeatedCharacter(proposedName, candidateName)) {
     signals.push(
       signal(
         "repeated-character",
@@ -189,9 +189,9 @@ function addSuspiciousSignals(
   }
 
   addScopeSignal(signals, proposed, candidate);
-  addAttachmentSignal(signals, proposed, candidate);
+  const attachmentFound = addAttachmentSignal(signals, proposed, candidate);
 
-  if (!separatorConfusion) {
+  if (!separatorConfusion && !attachmentFound) {
     const points = editDistancePoints(
       distance,
       Math.max(Array.from(proposedName).length, Array.from(candidateName).length),
@@ -206,7 +206,9 @@ function addSuspiciousSignals(
           {
             points,
             distance,
-            similarity: Number((1 - distance / Math.max(proposedName.length, candidateName.length)).toFixed(3)),
+            similarity: Number(
+              (1 - distance / Math.max(proposedName.length, candidateName.length)).toFixed(3),
+            ),
           },
         ),
       );
@@ -244,10 +246,10 @@ function addAttachmentSignal(
   signals: PackageNameSignal[],
   proposed: ParsedPackageName,
   candidate: ParsedPackageName,
-): void {
-  if (proposed.scope !== candidate.scope) return;
+): boolean {
+  if (proposed.scope !== candidate.scope) return false;
   const attachment = findGenericAttachment(proposed.name, candidate.name);
-  if (!attachment) return;
+  if (!attachment) return false;
 
   signals.push(
     signal(
@@ -262,6 +264,7 @@ function addAttachmentSignal(
       },
     ),
   );
+  return true;
 }
 
 function signal(

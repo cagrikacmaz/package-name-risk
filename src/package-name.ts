@@ -25,8 +25,15 @@ export function parsePackageName(value: unknown, label = "package name"): Parsed
       `${label} must not exceed ${MAX_PACKAGE_NAME_LENGTH} characters.`,
     );
   }
-  if (/\s|[\u0000-\u001f\u007f]/u.test(normalized)) {
-    throw new PackageNameRiskError("INVALID_PACKAGE_NAME", `${label} contains whitespace or control characters.`);
+  const containsControlCharacter = Array.from(normalized).some((character) => {
+    const codePoint = character.codePointAt(0)!;
+    return codePoint <= 31 || codePoint === 127;
+  });
+  if (/\s/u.test(normalized) || containsControlCharacter) {
+    throw new PackageNameRiskError(
+      "INVALID_PACKAGE_NAME",
+      `${label} contains whitespace or control characters.`,
+    );
   }
 
   if (normalized.startsWith("@")) {

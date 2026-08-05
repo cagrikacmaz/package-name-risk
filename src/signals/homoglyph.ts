@@ -16,7 +16,7 @@ const HOMOGLYPHS: Readonly<Record<string, string>> = {
   ι: "i",
   ο: "o",
   ρ: "p",
-  ѕ: "s",
+  ς: "s",
   χ: "x",
   γ: "y",
 };

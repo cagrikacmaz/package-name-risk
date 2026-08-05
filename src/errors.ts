@@ -1,7 +1,5 @@
 export type PackageNameRiskErrorCode =
-  | "INVALID_PACKAGE_NAME"
-  | "INVALID_CANDIDATES"
-  | "INVALID_OPTION";
+  "INVALID_PACKAGE_NAME" | "INVALID_CANDIDATES" | "INVALID_OPTION";
 
 export class PackageNameRiskError extends Error {
   readonly code: PackageNameRiskErrorCode;
