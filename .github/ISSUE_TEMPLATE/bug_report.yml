@@ -1,0 +1,29 @@
+name: Bug report
+description: Report incorrect behavior or an unexpected failure
+title: "bug: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Please avoid including sensitive package or organization information.
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      placeholder: 1.0.0
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Include the proposed name, options, actual result, and expected result.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: Node.js 22, Windows 11
+    validations:
+      required: true
