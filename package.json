@@ -35,6 +35,9 @@
   "engines": {
     "node": ">=20"
   },
+  "overrides": {
+    "esbuild": "^0.28.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cagrikacmaz/package-name-risk.git"
