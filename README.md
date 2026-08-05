@@ -3,6 +3,7 @@
 A lightweight TypeScript library and CLI for detecting suspicious package-name similarity and common typosquatting patterns.
 
 [![CI](https://github.com/cagrikacmaz/package-name-risk/actions/workflows/ci.yml/badge.svg)](https://github.com/cagrikacmaz/package-name-risk/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/package-name-risk.svg)](https://www.npmjs.com/package/package-name-risk)
 
 Package names can be hard to distinguish when characters are omitted, swapped, repeated, replaced with lookalike Unicode characters, or surrounded by plausible-sounding words. `package-name-risk` compares a proposed name with a caller-provided set of known names and returns a deterministic, serializable explanation. The analysis is local and performs no network requests.
 
