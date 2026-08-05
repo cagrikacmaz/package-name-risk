@@ -18,7 +18,7 @@ import type {
   PackageNameSignalType,
 } from "./types.js";
 
-const DEFAULT_MATCH_THRESHOLD = 20;
+const DEFAULT_MINIMUM_MATCH_SCORE = 20;
 const DEFAULT_MAX_MATCHES = 5;
 
 export function analyzePackageName(
@@ -26,7 +26,7 @@ export function analyzePackageName(
   options: AnalyzePackageNameOptions,
 ): PackageNameRiskResult {
   const proposed = parsePackageName(packageName);
-  const { threshold, maxMatches } = validateOptions(options);
+  const { minimumMatchScore, maxMatches } = validateOptions(options);
   const candidates = uniqueParsedNames(options.candidates, "candidate");
   const popularNames = new Set(
     uniqueParsedNames(options.popularPackages ?? [], "popular package").map(
@@ -41,7 +41,7 @@ export function analyzePackageName(
   const matches = allMatches
     .filter(
       (match) =>
-        match.score >= threshold ||
+        match.score >= minimumMatchScore ||
         match.signals.some((signal) => signal.type === "exact-normalized-match"),
     )
     .slice(0, maxMatches);
@@ -291,7 +291,7 @@ function uniqueParsedNames(values: readonly string[], label: string): ParsedPack
 }
 
 function validateOptions(options: AnalyzePackageNameOptions | undefined): {
-  threshold: number;
+  minimumMatchScore: number;
   maxMatches: number;
 } {
   if (!options || !Array.isArray(options.candidates) || options.candidates.length === 0) {
@@ -304,10 +304,13 @@ function validateOptions(options: AnalyzePackageNameOptions | undefined): {
     throw new PackageNameRiskError("INVALID_OPTION", "popularPackages must be an array.");
   }
 
-  const threshold = options.threshold ?? DEFAULT_MATCH_THRESHOLD;
+  const minimumMatchScore = options.minimumMatchScore ?? DEFAULT_MINIMUM_MATCH_SCORE;
   const maxMatches = options.maxMatches ?? DEFAULT_MAX_MATCHES;
-  if (!Number.isFinite(threshold) || threshold < 0 || threshold > 100) {
-    throw new PackageNameRiskError("INVALID_OPTION", "threshold must be between 0 and 100.");
+  if (!Number.isFinite(minimumMatchScore) || minimumMatchScore < 0 || minimumMatchScore > 100) {
+    throw new PackageNameRiskError(
+      "INVALID_OPTION",
+      "minimumMatchScore must be between 0 and 100.",
+    );
   }
   if (!Number.isInteger(maxMatches) || maxMatches < 1 || maxMatches > 100) {
     throw new PackageNameRiskError(
@@ -315,7 +318,7 @@ function validateOptions(options: AnalyzePackageNameOptions | undefined): {
       "maxMatches must be an integer between 1 and 100.",
     );
   }
-  return { threshold, maxMatches };
+  return { minimumMatchScore, maxMatches };
 }
 
 function compareMatches(left: PackageNameMatch, right: PackageNameMatch): number {

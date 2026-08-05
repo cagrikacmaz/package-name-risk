@@ -3,7 +3,7 @@ import { pathToFileURL } from "node:url";
 import { analyzePackageName } from "./analyze.js";
 import { PackageNameRiskError } from "./errors.js";
 
-const VERSION = "1.0.0";
+const VERSION = "0.1.0";
 const DEFAULT_ALERT_THRESHOLD = 70;
 
 interface CliOptions {

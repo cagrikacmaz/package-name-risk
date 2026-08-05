@@ -102,6 +102,6 @@ describe("runCli", () => {
     expect(await runCli(["--help"], help.io)).toBe(0);
     expect(help.stdout()).toContain("Usage: package-name-risk");
     expect(await runCli(["--version"], version.io)).toBe(0);
-    expect(version.stdout()).toBe("1.0.0\n");
+    expect(version.stdout()).toBe("0.1.0\n");
   });
 });

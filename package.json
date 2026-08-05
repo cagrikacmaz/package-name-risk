@@ -1,6 +1,6 @@
 {
   "name": "package-name-risk",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A lightweight TypeScript library and CLI for detecting suspicious package-name similarity and common typosquatting patterns.",
   "keywords": [
     "package-security",

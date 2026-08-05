@@ -2,6 +2,8 @@
 
 A lightweight TypeScript library and CLI for detecting suspicious package-name similarity and common typosquatting patterns.
 
+[![CI](https://github.com/cagrikacmaz/package-name-risk/actions/workflows/ci.yml/badge.svg)](https://github.com/cagrikacmaz/package-name-risk/actions/workflows/ci.yml)
+
 Package names can be hard to distinguish when characters are omitted, swapped, repeated, replaced with lookalike Unicode characters, or surrounded by plausible-sounding words. `package-name-risk` compares a proposed name with a caller-provided set of known names and returns a deterministic, serializable explanation. The analysis is local and performs no network requests.
 
 ## Installation
@@ -30,7 +32,7 @@ console.log(result.score, result.risk, result.closestMatch);
 
 - `candidates`: one or more known package names to compare.
 - `popularPackages`: optional names whose suspicious similarities receive an additional 16 points.
-- `threshold`: the minimum score included in `matches` (default `20`). It does not change the overall `score` or `closestMatch`.
+- `minimumMatchScore`: the minimum score included in `matches` (default `20`). It does not change the overall `score`, `risk`, or `closestMatch`.
 - `maxMatches`: the maximum number of reported matches (default `5`, maximum `100`).
 
 Clearly invalid input throws `PackageNameRiskError`. Package names are limited to 214 Unicode code points and may contain letters, combining marks, numbers, dots, underscores, and hyphens. Scoped names must have exactly the form `@scope/name`. Leading and trailing whitespace is normalized so accidental padding can be reported as an exact normalized match.
@@ -69,7 +71,7 @@ Available options:
 --version                      Show the version
 ```
 
-The CLI exits with `0` below the alert threshold, `1` at or above it, and `2` for invalid usage or unreadable input. CLI `--threshold` is an alert threshold; the library option of the same name filters the `matches` array.
+The CLI exits with `0` below the alert threshold, `1` at or above it, and `2` for invalid usage or unreadable input. CLI `--threshold` controls this exit behavior; the library's separate `minimumMatchScore` option only filters the `matches` array.
 
 ## Detection signals
 

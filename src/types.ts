@@ -17,7 +17,7 @@ export interface AnalyzePackageNameOptions {
   candidates: readonly string[];
   popularPackages?: readonly string[];
   /** Lowest-scoring match included in `matches`. Does not change the overall score. */
-  threshold?: number;
+  minimumMatchScore?: number;
   maxMatches?: number;
 }
 

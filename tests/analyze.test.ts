@@ -98,7 +98,7 @@ describe("analyzePackageName", () => {
   it("ranks candidates deterministically and removes normalized duplicates", () => {
     const result = analyzePackageName("experss", {
       candidates: ["ramda", "Express", "express", "expresso"],
-      threshold: 0,
+      minimumMatchScore: 0,
       maxMatches: 3,
     });
     expect(result.matches).toHaveLength(3);
@@ -106,10 +106,10 @@ describe("analyzePackageName", () => {
     expect(result.matches.filter((match) => match.packageName === "express")).toHaveLength(1);
   });
 
-  it("keeps the overall assessment when the reporting threshold filters matches", () => {
+  it("keeps the overall assessment when the minimum match score filters matches", () => {
     const result = analyzePackageName("datefns", {
       candidates: ["date-fns"],
-      threshold: 50,
+      minimumMatchScore: 50,
     });
     expect(result.score).toBe(32);
     expect(result.matches).toEqual([]);
@@ -132,8 +132,8 @@ describe("analyzePackageName", () => {
   });
 
   it("validates numeric options", () => {
-    expect(() => analyzePackageName("a", { candidates: ["b"], threshold: 101 })).toThrow(
-      "threshold",
+    expect(() => analyzePackageName("a", { candidates: ["b"], minimumMatchScore: 101 })).toThrow(
+      "minimumMatchScore",
     );
     expect(() => analyzePackageName("a", { candidates: ["b"], maxMatches: 0 })).toThrow(
       "maxMatches",
