@@ -191,7 +191,7 @@ function addSuspiciousSignals(
   addScopeSignal(signals, proposed, candidate);
   const attachmentFound = addAttachmentSignal(signals, proposed, candidate);
 
-  if (!separatorConfusion && !attachmentFound) {
+  if (!separatorConfusion && !attachmentFound && !homoglyphs.matches) {
     const points = editDistancePoints(
       distance,
       Math.max(Array.from(proposedName).length, Array.from(candidateName).length),

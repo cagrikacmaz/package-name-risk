@@ -73,7 +73,7 @@ describe("analyzePackageName", () => {
   it("detects supported Unicode homoglyphs with strong weight", () => {
     const result = analyzePackageName("lоdash", { candidates: ["lodash"] });
     expect(signalTypes(result)).toContain("unicode-homoglyph");
-    expect(result.score).toBeGreaterThanOrEqual(88);
+    expect(result.score).toBe(88);
     expect(result.risk).toBe("high");
   });
 

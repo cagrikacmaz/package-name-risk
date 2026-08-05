@@ -8,10 +8,14 @@ export function hasSingleAdjacentTransposition(left: string, right: string): boo
     if (leftChars[index] !== rightChars[index]) differences.push(index);
   }
 
+  if (differences.length !== 2) return false;
+  const first = differences[0];
+  const second = differences[1];
+  if (first === undefined || second === undefined) return false;
+
   return (
-    differences.length === 2 &&
-    differences[1] === differences[0] + 1 &&
-    leftChars[differences[0]] === rightChars[differences[1]] &&
-    leftChars[differences[1]] === rightChars[differences[0]]
+    second === first + 1 &&
+    leftChars[first] === rightChars[second] &&
+    leftChars[second] === rightChars[first]
   );
 }
