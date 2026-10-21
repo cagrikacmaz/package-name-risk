@@ -57,13 +57,13 @@
     "prepublishOnly": "npm run typecheck && npm run lint && npm test && npm run build"
   },
   "devDependencies": {
-    "@types/node": "^22.15.0",
-    "@vitest/coverage-v8": "^3.1.0",
-    "eslint": "^9.26.0",
+    "@types/node": "^26.6.5",
+    "@vitest/coverage-v8": "^5.0.5",
+    "eslint": "^10.13.0",
     "prettier": "^3.5.0",
-    "tsup": "^8.5.0",
-    "typescript": "^5.8.0",
+    "tsup": "^9.0.0",
+    "typescript": "^7.0.2",
     "typescript-eslint": "^8.32.0",
-    "vitest": "^3.1.0"
+    "vitest": "^5.0.5"
   }
 }
